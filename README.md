@@ -33,3 +33,29 @@
    ```bash
    pio device monitor
    ```
+
+## WiFi Configuration
+
+Credentials are kept out of version control using a local config file.
+
+1. Copy the template:
+
+   ```bash
+   cp include/config.h.template include/config.h
+   ```
+
+2. Open `include/config.h` and fill in your credentials:
+
+   ```cpp
+   #define WIFI_SSID     "your_wifi_ssid"
+   #define WIFI_PASSWORD "your_wifi_pswd"
+   ```
+
+3. Include it in your source files where needed:
+
+   ```cpp
+   #include "config.h"
+   ```
+
+>[!NOTE]
+> `include/config.h` is gitignored — your credentials will never be committed.
