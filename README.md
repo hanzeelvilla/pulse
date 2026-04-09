@@ -49,6 +49,8 @@ Credentials are kept out of version control using a local config file.
    ```cpp
    #define WIFI_SSID     "your_wifi_ssid"
    #define WIFI_PASSWORD "your_wifi_pswd"
+   #define SPOTIFY_CLIENT_ID "your_spotify_client_id"
+   #define SPOTIFY_CLIENT_SECRET "your_spotify_client_secret"
    ```
 
 3. Include it in your source files where needed:
@@ -57,5 +59,5 @@ Credentials are kept out of version control using a local config file.
    #include "config.h"
    ```
 
->[!NOTE]
+> [!NOTE]
 > `include/config.h` is gitignored — your credentials will never be committed.
