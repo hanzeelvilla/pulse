@@ -1,11 +1,16 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+# --------------------------------- LIBRARIES -------------------------------- #
 #include <Arduino.h>
 #include <WiFi.h>
+#include <HTTPClient.h>
+#include <WiFiClientSecure.h>
 
-// Configuration options go here
+# -------------------------------- CREDENTIALS ------------------------------- #
 #define WIFI_SSID "your_wifi_ssid"
 #define WIFI_PASSWORD "your_wifi_pswd"
+#define SPOTIFY_CLIENT_ID "your_spotify_client_id"
+#define SPOTIFY_CLIENT_SECRET "your_spotify_client_secret"
 
 #endif // CONFIG_H

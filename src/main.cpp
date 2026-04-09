@@ -1,22 +1,31 @@
 #include "config.h"
+#include "Spotify.h"
+
+SpotifyClient spotify(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET);
 
 void setupWifi();
 
 void setup() {
   Serial.begin(115200);
   setupWifi();
+  spotify.authenticate();
 }
 
 void loop() {
-  if(WiFi.status() != WL_CONNECTED) {
+  if (WiFi.status() != WL_CONNECTED) {
     Serial.println("WiFi disconnected, reconnecting...");
     setupWifi();
   }
 
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
+  String token = spotify.getToken();
 
-  delay(1000);
+  if (token != "") {
+    Serial.println("Token OK: " + token.substring(0, 20) + "...");
+  } else {
+    Serial.println("Failed to obtain Spotify token.");
+  }
+
+  delay(5000);
 }
 
 void setupWifi() {
