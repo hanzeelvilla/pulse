@@ -1,14 +1,15 @@
 #include "config.h"
-#include "Spotify.h"
+#include "SpotifyClient.h"
+#include <Arduino.h>
+#include <WiFi.h>
 
-SpotifyClient spotify(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET);
+SpotifyClient spotify(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REFRESH_TOKEN);
 
 void setupWifi();
 
 void setup() {
   Serial.begin(115200);
   setupWifi();
-  spotify.authenticate();
 }
 
 void loop() {
@@ -17,15 +18,28 @@ void loop() {
     setupWifi();
   }
 
-  String token = spotify.getToken();
+  static unsigned long lastUpdate = 0;
+  const long interval = 5000; // Poll every 5 seconds
 
-  if (token != "") {
-    Serial.println("Token OK: " + token.substring(0, 20) + "...");
-  } else {
-    Serial.println("Failed to obtain Spotify token.");
+  if (millis() - lastUpdate > interval) {
+    lastUpdate = millis();
+    
+    if (WiFi.status() == WL_CONNECTED) {
+      TrackInfo track = spotify.getCurrentTrack();
+
+      if (track.isPlaying) {
+        Serial.println("\n==========================");
+        Serial.printf("Now Playing: %s\n", track.name.c_str());
+        Serial.printf("Artist(s):   %s\n", track.artist.c_str());
+        Serial.printf("Album:       %s\n", track.album.c_str());
+        Serial.println("==========================");
+      } else {
+        Serial.println("[Info] No active track found on Spotify.");
+      }
+    } else {
+      Serial.println("[Error] WiFi Disconnected.");
+    }
   }
-
-  delay(5000);
 }
 
 void setupWifi() {
