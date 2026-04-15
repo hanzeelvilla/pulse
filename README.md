@@ -6,6 +6,16 @@
 - USB cable to connect the ESP32
 - MAX7219 Matrix Display
 
+## Wiring
+
+| **MAX7219** | **ESP32 PIN** |
+| :---------: | :-----------: |
+|     VCC     |      5V       |
+|     GND     |      GND      |
+|     DIN     |    GPIO 23    |
+|     CS      |    GPIO 5     |
+|     CLK     |    GPIO 18    |
+
 ## Prerequisites
 
 - [PlatformIO](https://platformio.org/install/ide?install=vscode) — install via VS Code extension or the PlatformIO CLI
