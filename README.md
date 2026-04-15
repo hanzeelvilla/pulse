@@ -106,3 +106,12 @@
    ```bash
    pio device monitor
    ```
+
+## Improvements
+
+- [ ] DisplayManager documentation
+- [ ] SpotifyClient documentation
+- [ ] Use MultiWiFi to allow for multiple network configurations
+- [ ] Add error handling for Spotify API requests
+- [ ] Handle edge cases (e.g., no song playing, API rate limits)
+- [ ] Implement better logging and debugging output
