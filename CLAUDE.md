@@ -10,7 +10,7 @@ All code, comments, commit messages, documentation, and any other text written i
 
 Pulse is the **firmware** for an ESP32-driven MAX7219 LED matrix display. The long-term goal (not yet implemented) is to control the display's content from a separate web frontend ([pulse-frontend](https://github.com/hanzeelvilla/pulse-frontend)) that connects to the device and switches between multiple "screens": free text, currently-playing Spotify track, clock, timer/stopwatch, pomodoro, days until payday, GitHub contributions graph, etc. (see README.md's "Planned Screens").
 
-The codebase was recently reset to a minimal "Hello World" scroll sketch as a clean starting point for this rebuild — there is currently no WiFi, networking, or multi-screen logic. Expect the architecture (WiFi connectivity, a display/screen abstraction, an API server or client to talk to the frontend) to be built up from here.
+The codebase was recently reset to a minimal "Hello World" scroll sketch as a clean starting point for this rebuild. WiFi connectivity (via the `NetworkManager` library) is now in place, but there is still no multi-screen logic or API server/client. Expect the rest of the architecture (a display/screen abstraction, an API server or client to talk to the frontend) to be built up from here — see `ROADMAP.md` for the phased plan.
 
 ## Build System
 
@@ -31,7 +31,7 @@ There are no automated tests or linting configured (`test/` only contains Platfo
 
 - `src/main.cpp` — entry point (`setup()`/`loop()`). Owns the single `MD_Parola` display instance.
 - `include/config.h` — hardware configuration only (`HARDWARE_TYPE`, `MAX_DEVICES`, `CLK_PIN`/`DATA_PIN`/`CS_PIN`). This file is real config but **is gitignored**; `include/config.h.template` is the tracked template new setups copy from. Keep both in sync when hardware constants change.
-- `lib/` — currently empty of custom code (PlatformIO auto-links anything placed here into `src/main.cpp` via the Library Dependency Finder). Previous iterations had `SpotifyClient` and `DisplayManager` libraries here; as new screens/features are built, prefer reintroducing self-contained libraries under `lib/<Name>/` (with a matching `.h`/`.cpp`/`README.md`) over growing `main.cpp` into a monolith.
+- `lib/` — self-contained libraries auto-linked into `src/main.cpp` by PlatformIO's Library Dependency Finder. Currently `lib/NetworkManager/` (WiFi connect + auto-reconnect). Previous iterations also had `SpotifyClient` and `DisplayManager` libraries here; as new screens/features are built, prefer adding further self-contained libraries under `lib/<Name>/` (with a matching `.h`/`.cpp`/`README.md`) over growing `main.cpp` into a monolith.
 - Display driver: `MD_Parola` + `MD_MAX72XX` (majicdesigns libraries), SPI-driven MAX7219 modules — not addressable RGB (no FastLED/NeoPixel). Wiring and pin mapping are documented in `README.md`.
 
 ## Notes

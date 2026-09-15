@@ -26,6 +26,27 @@ This repository holds the **firmware** running on the ESP32. The web interface l
 
 - [PlatformIO](https://platformio.org/install/ide?install=vscode) — install via VS Code extension or the PlatformIO CLI
 
+## Configuration
+
+Wi-Fi credentials are kept out of source control. Before building:
+
+1. Copy the config template:
+
+   ```bash
+   cp include/config.h.template include/config.h
+   ```
+
+2. Open `include/config.h` and fill in your Wi-Fi credentials:
+
+   ```cpp
+   #define WIFI_SSID "your_wifi_ssid"
+   #define WIFI_PASSWORD "your_wifi_password"
+   ```
+
+> [!NOTE]
+> `include/config.h` is gitignored — it's safe to store real credentials
+> there; they will never be committed.
+
 ## Installation and Setup
 
 1. Clone the repository:

@@ -1,5 +1,18 @@
 {
   "enabledPlugins": {
     "ponytail@ponytail": true
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "input=$(cat); if printf '%s' \"$input\" | grep -qE '\"file_path\"[[:space:]]*:[[:space:]]*\"[^\"]*[\\/](src|include|lib)[\\/]'; then printf '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"Reminder: this change touched firmware/code (src, include, or lib). Check whether README.md and ROADMAP.md need updates: mark progress/changes made, and document any new setup, configuration, or installation requirements.\"}}'; fi"
+          }
+        ]
+      }
+    ]
   }
 }

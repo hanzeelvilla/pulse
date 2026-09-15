@@ -8,4 +8,8 @@
 #define DATA_PIN  23
 #define CS_PIN    5
 
+/* ---------------------------- WIFI CREDENTIALS ---------------------------- */
+#define WIFI_SSID "your_wifi_ssid"
+#define WIFI_PASSWORD "your_wifi_password"
+
 #endif // CONFIG_H
