@@ -31,7 +31,7 @@ There are no automated tests or linting configured (`test/` only contains Platfo
 
 - `src/main.cpp` — entry point (`setup()`/`loop()`). Owns the single `MD_Parola` display instance.
 - `include/config.h` — hardware configuration only (`HARDWARE_TYPE`, `MAX_DEVICES`, `CLK_PIN`/`DATA_PIN`/`CS_PIN`). This file is real config but **is gitignored**; `include/config.h.template` is the tracked template new setups copy from. Keep both in sync when hardware constants change.
-- `lib/` — self-contained libraries auto-linked into `src/main.cpp` by PlatformIO's Library Dependency Finder. Currently `lib/NetworkManager/` (WiFi connect + auto-reconnect). Previous iterations also had `SpotifyClient` and `DisplayManager` libraries here; as new screens/features are built, prefer adding further self-contained libraries under `lib/<Name>/` (with a matching `.h`/`.cpp`/`README.md`) over growing `main.cpp` into a monolith.
+- `lib/` — self-contained libraries auto-linked into `src/main.cpp` by PlatformIO's Library Dependency Finder. Currently: `lib/NetworkManager/` (WiFi connect + auto-reconnect), `lib/Screen/` (base `Screen` interface — render lifecycle only, no switching/registry yet), and `lib/FreeTextScreen/` (first concrete `Screen`, scrolling text). Previous iterations also had `SpotifyClient` and `DisplayManager` libraries here; as new screens/features are built, prefer adding further self-contained libraries under `lib/<Name>/` (with a matching `.h`/`.cpp`/`README.md`) over growing `main.cpp` into a monolith.
 - Display driver: `MD_Parola` + `MD_MAX72XX` (majicdesigns libraries), SPI-driven MAX7219 modules — not addressable RGB (no FastLED/NeoPixel). Wiring and pin mapping are documented in `README.md`.
 
 ## Notes

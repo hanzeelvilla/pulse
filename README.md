@@ -72,7 +72,7 @@ Wi-Fi credentials are kept out of source control. Before building:
 
 ## Planned Screens
 
-- [ ] Free text
+- [x] Free text
 - [ ] Currently playing Spotify track
 - [ ] Clock
 - [ ] Timer / Stopwatch

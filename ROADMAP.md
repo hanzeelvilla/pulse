@@ -13,7 +13,7 @@ Incremental plan to rebuild Pulse into a web-controlled, multi-screen LED displa
 
 - [x] **Phase 0 — Firmware reset**: minimal "Hello World" scroll sketch, docs rewritten.
 - [x] **Phase 1 — Firmware: basic connectivity**: WiFi on the ESP32, auto-reconnect, serial logging of status/IP. No networking features yet.
-- [ ] **Phase 2 — Firmware: screen abstraction**: introduce a `Screen` interface, refactor the current scroll sketch into the first real screen: **Free Text**. Still fully local.
+- [x] **Phase 2 — Firmware: screen abstraction**: introduce a `Screen` interface, refactor the current scroll sketch into the first real screen: **Free Text**. Still fully local.
 - [ ] **Phase 3 — Backend: NestJS skeleton with Gateway**: NestJS project with a `WebSocketGateway`. Separate device vs. frontend clients from the start (e.g. namespaces `/device` and `/frontend`). One event ("set free text"), in-memory state. No Spotify/GitHub yet.
 - [ ] **Phase 4 — Firmware ↔ Backend: first end-to-end loop**: ESP32 connects to the Gateway as a WebSocket client and displays the text it receives.
 - [ ] **Phase 5 — Frontend: first vertical slice**: React+Vite app with `socket.io-client` connected to the Gateway. Free text input → full loop: frontend → backend → ESP32 → display.
