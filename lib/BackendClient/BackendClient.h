@@ -7,10 +7,10 @@
 // Gateway (see pulse-backend). Keep this in sync if the backend ever
 // changes either value.
 #define BACKEND_DEVICE_NAMESPACE "/device"
-#define EVENT_SET_FREE_TEXT "set-free-text"
+#define EVENT_DISPLAY_TEXT "display-text"
 
 namespace BackendClient {
-  // Invoked with the text payload of a "set-free-text" event.
+  // Invoked with the text payload of a "display-text" event.
   typedef void (*FreeTextHandler)(const char *text);
 
   // Connects to the backend's Socket.IO Gateway on the BACKEND_DEVICE_NAMESPACE

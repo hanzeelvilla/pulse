@@ -24,7 +24,7 @@ public:
 
 private:
   MD_Parola &display_;
-  const char *text_;
+  String text_;
 };
 
 #endif // FREE_TEXT_SCREEN_H

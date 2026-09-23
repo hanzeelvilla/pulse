@@ -26,6 +26,10 @@ namespace {
     size_t jsonLength;
     const uint8_t *json = skipNamespacePrefix(payload, length, jsonLength);
 
+    Serial.print("BackendClient: raw event: ");
+    Serial.write(json, jsonLength);
+    Serial.println();
+
     JsonDocument doc;
     if (deserializeJson(doc, json, jsonLength) != DeserializationError::Ok) {
       Serial.println("BackendClient: failed to parse event payload");
@@ -33,7 +37,9 @@ namespace {
     }
 
     const char *eventName = doc[0];
-    if (eventName == nullptr || strcmp(eventName, EVENT_SET_FREE_TEXT) != 0) {
+    if (eventName == nullptr || strcmp(eventName, EVENT_DISPLAY_TEXT) != 0) {
+      Serial.print("BackendClient: ignoring event: ");
+      Serial.println(eventName != nullptr ? eventName : "(null)");
       return;
     }
 
@@ -56,6 +62,8 @@ namespace {
         handleEvent(payload, length);
         break;
       default:
+        Serial.print("BackendClient: unhandled socket.io message type ");
+        Serial.println((int)type);
         break;
     }
   }

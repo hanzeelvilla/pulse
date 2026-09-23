@@ -9,7 +9,7 @@ void FreeTextScreen::setText(const char *message) {
 
 void FreeTextScreen::start() {
   display_.displayClear();
-  display_.displayText(text_, PA_CENTER, 50, 0, PA_SCROLL_LEFT, PA_SCROLL_LEFT);
+  display_.displayText(text_.c_str(), PA_CENTER, 50, 0, PA_SCROLL_LEFT, PA_SCROLL_LEFT);
 }
 
 void FreeTextScreen::update() {

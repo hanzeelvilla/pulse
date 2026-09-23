@@ -7,8 +7,10 @@ concrete piece of Phase 4 (firmware ↔ backend end-to-end loop).
 ## Protocol contract
 
 - Namespace: `/device` (`BACKEND_DEVICE_NAMESPACE` in `BackendClient.h`)
-- Event: `set-free-text` (`EVENT_SET_FREE_TEXT` in `BackendClient.h`), payload
-  is a single string — the text to display.
+- Event: `display-text` (`EVENT_DISPLAY_TEXT` in `BackendClient.h`), payload
+  is a single string — the text to display. Emitted by the Gateway's
+  `DeviceGateway.broadcastText()` whenever a frontend client sends
+  `set-free-text` on the `/frontend` namespace (see pulse-backend).
 
 These two macros are the source of truth for the contract with the backend;
 update them here if the Gateway's namespace or event name ever changes.
@@ -17,7 +19,7 @@ update them here if the Gateway's namespace or event name ever changes.
 
 - `BackendClient::begin(host, port, onSetFreeText)` — connects to the
   Gateway. `onSetFreeText` is called with the text payload whenever a
-  `set-free-text` event arrives. Non-blocking.
+  `display-text` event arrives. Non-blocking.
 - `BackendClient::loop()` — call every `loop()` to pump the Socket.IO client.
 
 ## Usage
@@ -48,9 +50,8 @@ void loop() {
   there.
 - Depends on `links2004/WebSockets` (Socket.IO client) and `bblanchon/ArduinoJson`.
 
-## Known gap
+## Verified
 
-Not yet verified end-to-end against a running `pulse-backend` instance — the
-Socket.IO client library's exact framing for non-default namespaces varies
-across versions, so `handleEvent`'s namespace-prefix stripping is defensive
-but unconfirmed. Verify with a real Gateway before considering Phase 4 done.
+Confirmed end-to-end against a running `pulse-backend` instance: the
+namespace-prefix stripping in `handleEvent` correctly parses `/device`-scoped
+`display-text` frames from the current `links2004/WebSockets` version.
