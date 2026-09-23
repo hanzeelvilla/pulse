@@ -5,7 +5,7 @@ Incremental plan to rebuild Pulse into a web-controlled, multi-screen LED displa
 ## Architecture
 
 - **Firmware (this repo)**: ESP32 + MAX7219 matrix. Connects out to the backend as a WebSocket client. Stays "dumb" — just renders whatever the backend sends, no direct calls to external APIs.
-- **Backend**: NestJS server with a WebSocket Gateway. Acts as the single intermediary between the frontend and the device, and owns all external API calls (Spotify, GitHub) — keeps secrets server-side and the device/frontend simple.
+- **Backend**: NestJS server with a WebSocket Gateway. Acts as the single intermediary between the frontend(s) and the device, and owns all external API calls (Spotify, GitHub) — keeps secrets server-side and the device/frontend simple. Supports multiple frontend clients connected at once: a change from any one of them is broadcast to the `/frontend` namespace (not just echoed back to the sender), so every connected frontend stays in sync.
 - **Persistence**: SQLite via TypeORM. Only for data that must survive a restart — device pairing/credentials and the Spotify refresh token. Everything else (active screen, timer/pomodoro state, GitHub cache) stays in memory.
 - **Frontend**: [pulse-frontend](https://github.com/hanzeelvilla/pulse-frontend) (React + Vite). Talks only to the backend via WebSocket (`socket.io-client`), never directly to the device or to external APIs.
 

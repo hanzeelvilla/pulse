@@ -28,7 +28,8 @@ This repository holds the **firmware** running on the ESP32. The web interface l
 
 ## Configuration
 
-Wi-Fi credentials are kept out of source control. Before building:
+Wi-Fi credentials and the backend address are kept out of source control.
+Before building:
 
 1. Copy the config template:
 
@@ -36,11 +37,15 @@ Wi-Fi credentials are kept out of source control. Before building:
    cp include/config.h.template include/config.h
    ```
 
-2. Open `include/config.h` and fill in your Wi-Fi credentials:
+2. Open `include/config.h` and fill in your Wi-Fi credentials and the
+   [pulse-backend](https://github.com/hanzeelvilla/pulse-backend) host/port:
 
    ```cpp
    #define WIFI_SSID "your_wifi_ssid"
    #define WIFI_PASSWORD "your_wifi_password"
+
+   #define BACKEND_HOST "your_backend_host_or_ip"
+   #define BACKEND_PORT 3000
    ```
 
 > [!NOTE]
